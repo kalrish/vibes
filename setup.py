@@ -8,6 +8,9 @@ packages = setuptools.find_namespace_packages(
 )
 
 setuptools.setup(
+    install_requires=[
+        'PyYAML == 5.3.1',
+    ],
     entry_points={
         'console_scripts': [
             'mustup = mustup.core.cli.main:entry_point',

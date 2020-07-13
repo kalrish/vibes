@@ -34,6 +34,10 @@ def process_current_directory(
             metadata = load_metadata(
             )
 
+            formatter.process_directory(
+                metadata=metadata,
+            )
+
             iterator = build_instructions.items(
             )
 
@@ -128,7 +132,7 @@ def process_current_directory(
                         track_metadata,
                     )
 
-                    rule = formatter.process(
+                    rule = formatter.process_track(
                         metadata=track_metadata,
                         source_basename=track_source_path.stem,
                         source_name=track_source_name,
