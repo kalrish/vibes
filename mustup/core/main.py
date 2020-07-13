@@ -1,6 +1,7 @@
 import importlib
 import logging
 import pathlib
+import os
 import re
 
 import yaml
@@ -250,8 +251,10 @@ def load_metadata(
 
                 for picture_details in iterator:
                     picture_path = picture_details['path']
-                    up_levels = '../' * level
-                    picture_path = up_levels + picture_path
+                    up_levels = os.path.relpath(
+                        path,
+                    )
+                    picture_path = up_levels + '/' + picture_path
                     picture_details['path'] = picture_path
 
             merge(
