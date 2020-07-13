@@ -82,38 +82,40 @@ def process_current_directory(
                         },
                     )
 
-                    if 'trim' not in formatter.supported_transformations:
-                        try:
-                            transformation_trim = transformations['trim']
-                        except KeyError:
-                            pass
-                        else:
-                            processed_track_source_name = f'{track_source_path.stem}-processed.wave'
-                            rule = mustup.core.tup.rule.Rule(
-                                inputs=[
-                                    track_source_name,
-                                ],
-                                command=[
-                                    'ffmpeg',
-                                    '-i',
-                                    track_source_name,
-                                    '-ss',
-                                    '00:00:20',
-                                    '-to',
-                                    '00:00:40',
-                                    '-f',
-                                    'wav',
-                                    '-c',
-                                    'copy',
-                                    processed_track_source_name,
-                                ],
-                                outputs=[
-                                    processed_track_source_name,
-                                ],
-                            )
-
-                            rule.output(
-                            )
+#                    if 'trim' not in formatter.supported_transformations:
+#                        try:
+#                            transformation_trim = transformations['trim']
+#                        except KeyError:
+#                            pass
+#                        else:
+#                            processed_track_source_name = f'{track_source_path.stem}-processed.wave'
+#                            rule = mustup.core.tup.rule.Rule(
+#                                inputs=[
+#                                    track_source_name,
+#                                ],
+#                                command=[
+#                                    'ffmpeg',
+#                                    '-i',
+#                                    track_source_name,
+#                                    '-ss',
+#                                    '00:00:20',
+#                                    '-to',
+#                                    '00:00:40',
+#                                    '-f',
+#                                    'wav',
+#                                    '-c',
+#                                    'copy',
+#                                    processed_track_source_name,
+#                                ],
+#                                outputs=[
+#                                    processed_track_source_name,
+#                                ],
+#                            )
+#
+#                            rule.output(
+#                            )
+#
+#                            track_source_name = f'{track_source_path.stem}-processed'
 
                     merge(
                         destination=track_metadata,
