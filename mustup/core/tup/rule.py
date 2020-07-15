@@ -43,6 +43,8 @@ class Rule:
 
             include_caret_part = True
         else:
+            joined_caret_flags = None
+
             include_caret_part = bool(
                 self.pretty_command,
             )
