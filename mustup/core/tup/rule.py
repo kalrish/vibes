@@ -11,12 +11,15 @@ class Rule:
                 inputs,
                 command,
                 outputs,
+                caret_flags = [
+                ],
+                pretty_command = None,
             ):
-        self.inputs = inputs
-
+        self.caret_flags = caret_flags
         self.command = command
-
+        self.inputs = inputs
         self.outputs = outputs
+        self.pretty_command = pretty_command
 
     def serialize(
                 self,
@@ -33,7 +36,31 @@ class Rule:
             self.outputs,
         )
 
-        rule = f': { inputs } |> { command } |> { outputs }'
+        if self.caret_flags:
+            joined_caret_flags = ''.join(
+                self.caret_flags,
+            )
+
+            include_caret_part = True
+        else:
+            include_caret_part = bool(
+                self.pretty_command,
+            )
+
+        if include_caret_part:
+            caret_part = '^'
+
+            if joined_caret_flags:
+                caret_part = caret_part + joined_caret_flags
+
+            if self.pretty_command:
+                caret_part = caret_part + ' ' + self.pretty_command
+
+            caret_part = caret_part + '^'
+        else:
+            caret_part = ''
+
+        rule = f': { inputs } |> { caret_part } { command } |> { outputs }'
 
         return rule
 
