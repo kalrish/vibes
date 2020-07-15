@@ -15,6 +15,15 @@ def set_up(
     )
 
     parser.add_argument(
+        '-e',
+        '--encoder',
+        dest='encoder',
+        help='encoder module to use',
+        metavar='ENCODER',
+        required=True,
+    )
+
+    parser.add_argument(
         '-l',
         '--logging-level',
         default='warning',
@@ -22,15 +31,6 @@ def set_up(
         help='logging level',
         type=mustup.core.cli.argparsing.types.logging_level.parser,
         metavar='LEVEL',
-    )
-
-    parser.add_argument(
-        '-f',
-        '--format',
-        dest='format',
-        help='format',
-        metavar='FORMAT',
-        required=True,
     )
 
     return parser

@@ -18,15 +18,15 @@ tracknumber_regex = re.compile(
 
 
 def process_current_directory(
-            format_name,
+            encoder_name,
         ):
     return_value = False
 
-    formatter = get_formatter(
-        name=format_name,
+    encoder = get_encoder(
+        name=encoder_name,
     )
 
-    if formatter:
+    if encoder:
         build_instructions = load_build_instructions(
         )
 
@@ -34,7 +34,7 @@ def process_current_directory(
             metadata = load_metadata(
             )
 
-            formatter.process_directory(
+            encoder.process_directory(
                 metadata=metadata,
             )
 
@@ -48,7 +48,7 @@ def process_current_directory(
 
                 extension = track_source_path.suffix
 
-                supported_source_type = extension in formatter.supported_extensions
+                supported_source_type = extension in encoder.supported_extensions
 
                 if supported_source_type:
                     track_metadata = instructions['metadata']
@@ -132,7 +132,7 @@ def process_current_directory(
                         track_metadata,
                     )
 
-                    rule = formatter.process_track(
+                    rule = encoder.process_track(
                         metadata=track_metadata,
                         source_basename=track_source_path.stem,
                         source_name=track_source_name,
@@ -147,9 +147,9 @@ def process_current_directory(
                     return_value = True
                 else:
                     logger.error(
-                        '%s: not supported by format %s',
+                        '%s: not supported by encoder %s',
                         track_source_name,
-                        format_name,
+                        encoder_name,
                     )
 
                     return_value = False
@@ -159,31 +159,31 @@ def process_current_directory(
     return return_value
 
 
-def get_formatter(
+def get_encoder(
             name,
         ):
     try:
-        format_module = importlib.import_module(
+        encoder_module = importlib.import_module(
             name=f'.{name}',
-            package='mustup.formats',
+            package='mustup.encoders',
         )
     except ModuleNotFoundError:
         logger.error(
-            'could not find module for format %s',
+            'could not find module for encoder %s',
             name,
         )
 
         return_value = None
     else:
-        formatter_class = getattr(
-            format_module,
-            'Format',
+        encoder_class = getattr(
+            encoder_module,
+            'Encoder',
         )
 
-        formatter = formatter_class(
+        encoder_instance = encoder_class(
         )
 
-        return_value = formatter
+        return_value = encoder_instance
 
     return return_value
 

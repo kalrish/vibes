@@ -13,7 +13,7 @@ logger = logging.getLogger(
 
 def entry_point(
         ):
-    format_name = None
+    encoder_name = None
 
     try:
         vardict_path = os.environ['tup_vardict']
@@ -32,7 +32,7 @@ def entry_point(
         )
 
         logging_level = args.logging_level
-        format_name = args.format
+        encoder_name = args.encoder
 
     mustup.core.cli.logging.set_up(
         level=logging_level,
@@ -44,15 +44,15 @@ def entry_point(
         )
 
         try:
-            format_name = vardict['FORMAT']
+            encoder_name = vardict['ENCODER']
         except KeyError:
             logger.error(
-                'CONFIG_FORMAT not set',
+                'CONFIG_ENCODER not set',
             )
 
-    if format_name:
+    if encoder_name:
         return_value = mustup.core.main.process_current_directory(
-            format_name=format_name,
+            encoder_name=encoder_name,
         )
 
         exit_code = int(
