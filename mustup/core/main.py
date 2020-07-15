@@ -139,6 +139,8 @@ def process_current_directory(
                         transformations=transformations,
                     )
 
+                    rule.pretty_command = 'ENCODE'
+
                     rule.output(
                     )
 
