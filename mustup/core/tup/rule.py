@@ -13,11 +13,14 @@ class Rule:
                 outputs,
                 caret_flags = [
                 ],
+                order_only_inputs = [
+                ],
                 pretty_command = None,
             ):
         self.caret_flags = caret_flags
         self.command = command
         self.inputs = inputs
+        self.order_only_inputs = order_only_inputs
         self.outputs = outputs
         self.pretty_command = pretty_command
 
@@ -26,6 +29,10 @@ class Rule:
             ):
         inputs = ' '.join(
             self.inputs,
+        )
+
+        order_only_inputs = ' '.join(
+            self.order_only_inputs,
         )
 
         command = ' '.join(
@@ -62,7 +69,7 @@ class Rule:
         else:
             caret_part = ''
 
-        rule = f': { inputs } |> { caret_part } { command } |> { outputs }'
+        rule = f': { inputs } | { order_only_inputs } |> { caret_part } { command } |> { outputs }'
 
         return rule
 
