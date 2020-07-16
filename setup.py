@@ -2,15 +2,12 @@ import setuptools
 
 
 packages = setuptools.find_namespace_packages(
-    include=[
-        'mustup.*',
-    ],
 )
 
 setuptools.setup(
     install_requires=[
-        'mustup_tup >= 0.1 , < 1.0',
-        'PyYAML == 5.3.1',
+        'mustup_tup == 0.*',
+        'PyYAML == 5.3.*',
     ],
     entry_points={
         'console_scripts': [
