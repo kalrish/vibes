@@ -48,6 +48,11 @@ def entry_point(
         level=logging_level,
     )
 
+    logger.debug(
+        'encoder name: "%s"',
+        encoder_name,
+    )
+
     return_value = mustup.core.main.process_current_directory(
         encoder_name=encoder_name,
     )
