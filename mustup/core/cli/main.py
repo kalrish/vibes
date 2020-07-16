@@ -13,52 +13,47 @@ logger = logging.getLogger(
 
 def entry_point(
         ):
-    encoder_name = None
+    default_arguments = {
+    }
 
     try:
-        vardict_path = os.environ['tup_vardict']
-    except KeyError:
-        under_tup = False
-    else:
-        under_tup = True
-
-    if under_tup:
-        logging_level = logging.INFO
-    else:
-        parser = mustup.core.cli.argparsing.set_up(
+        vardict = mustup.tup.vardict.load(
         )
+    except mustup.tup.errors.NotUnderTup:
+        default_logging_level = logging.DEBUG
+    else:
+        default_logging_level = logging.INFO
 
-        args = parser.parse_args(
-        )
+        try:
+            encoder_name = vardict['ENCODER']
+        except KeyError:
+            logger.warning(
+                'CONFIG_ENCODER not set; --encoder may be specified, but the @-variable would be better',
+            )
+        else:
+            default_arguments['default_encoder'] = encoder_name
 
-        logging_level = args.logging_level
-        encoder_name = args.encoder
+    parser = mustup.core.cli.argparsing.set_up(
+        default_logging_level=default_logging_level,
+        **default_arguments,
+    )
+
+    args = parser.parse_args(
+    )
+
+    logging_level = args.logging_level
+    encoder_name = args.encoder
 
     mustup.core.cli.logging.set_up(
         level=logging_level,
     )
 
-    if under_tup:
-        vardict = mustup.tup.vardict.load(
-            path=vardict_path,
-        )
+    return_value = mustup.core.main.process_current_directory(
+        encoder_name=encoder_name,
+    )
 
-        try:
-            encoder_name = vardict['ENCODER']
-        except KeyError:
-            logger.error(
-                'CONFIG_ENCODER not set',
-            )
-
-    if encoder_name:
-        return_value = mustup.core.main.process_current_directory(
-            encoder_name=encoder_name,
-        )
-
-        exit_code = int(
-            not return_value,
-        )
-    else:
-        exit_code = 1
+    exit_code = int(
+        not return_value,
+    )
 
     return exit_code

@@ -9,10 +9,18 @@ logger = logging.getLogger(
 
 
 def set_up(
+            default_logging_level,
+            default_encoder=None,
         ):
     parser = argparse.ArgumentParser(
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
     )
+
+    arg_encoder_kwargs = {
+    }
+
+    if default_encoder:
+        arg_encoder_kwargs['default'] = default_encoder
 
     parser.add_argument(
         '-e',
@@ -21,12 +29,13 @@ def set_up(
         help='encoder module to use',
         metavar='ENCODER',
         required=True,
+        **arg_encoder_kwargs,
     )
 
     parser.add_argument(
         '-l',
         '--logging-level',
-        default='warning',
+        default=default_logging_level,
         dest='logging_level',
         help='logging level',
         type=mustup.core.cli.argparsing.types.logging_level.parser,
