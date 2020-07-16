@@ -58,12 +58,12 @@ def process_current_directory(
                     )
 
                     if match:
-                        track_number_base10 = match.group(
+                        track_number_padded = match.group(
                             1,
                         )
 
-                        track_number = int(
-                            track_number_base10,
+                        track_number = track_number_padded.lstrip(
+                            '0',
                         )
 
                         try:
