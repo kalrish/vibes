@@ -22,15 +22,17 @@ def set_up(
     if default_encoder:
         arg_encoder_kwargs['default'] = default_encoder
 
+    encoder_arg_required = not bool(
+        default_encoder,
+    )
+
     parser.add_argument(
         '-e',
         '--encoder',
         dest='encoder',
         help='encoder module to use',
         metavar='ENCODER',
-        required=bool(
-            default_encoder,
-        ),
+        required=encoder_arg_required,
         **arg_encoder_kwargs,
     )
 
