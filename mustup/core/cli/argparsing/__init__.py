@@ -28,7 +28,9 @@ def set_up(
         dest='encoder',
         help='encoder module to use',
         metavar='ENCODER',
-        required=True,
+        required=bool(
+            default_encoder,
+        ),
         **arg_encoder_kwargs,
     )
 
