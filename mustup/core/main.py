@@ -63,9 +63,9 @@ def process_current_directory(
                         )
 
                         try:
-                            track_metadata_track_number = track_metadata['tags']['track number']
+                            track_metadata_track_number = track_metadata['tags']['common']['track number']
                         except KeyError:
-                            track_metadata['tags']['track number'] = track_number
+                            track_metadata['tags']['common']['track number'] = track_number
                         else:
                             inferred_and_specified_are_equal = track_metadata_track_number == track_number
 
