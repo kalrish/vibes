@@ -58,8 +58,12 @@ def process_current_directory(
                     )
 
                     if match:
-                        track_number = match.group(
+                        track_number_base10 = match.group(
                             1,
+                        )
+
+                        track_number = int(
+                            track_number_base10,
                         )
 
                         try:
