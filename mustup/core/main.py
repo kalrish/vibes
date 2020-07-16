@@ -182,6 +182,11 @@ def get_encoder_class(
 
         return_value = None
     else:
+        logger.debug(
+            'module for encoder %s loaded successfully',
+            name,
+        )
+
         encoder_class = getattr(
             encoder_module,
             'Encoder',
