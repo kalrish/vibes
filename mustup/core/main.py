@@ -22,16 +22,19 @@ def process_current_directory(
         ):
     return_value = False
 
-    encoder = get_encoder(
+    encoder_class = get_encoder_class(
         name=encoder_name,
     )
 
-    if encoder:
+    if encoder_class:
         build_instructions = load_build_instructions(
         )
 
         if build_instructions:
             metadata = load_metadata(
+            )
+
+            encoder = encoder_class(
             )
 
             encoder.process_directory(
@@ -48,7 +51,7 @@ def process_current_directory(
 
                 extension = track_source_path.suffix
 
-                supported_source_type = extension in encoder.supported_extensions
+                supported_source_type = extension in encoder.supported_input_extensions
 
                 if supported_source_type:
                     track_metadata = instructions['metadata']
@@ -163,7 +166,7 @@ def process_current_directory(
     return return_value
 
 
-def get_encoder(
+def get_encoder_class(
             name,
         ):
     try:
@@ -184,10 +187,7 @@ def get_encoder(
             'Encoder',
         )
 
-        encoder_instance = encoder_class(
-        )
-
-        return_value = encoder_instance
+        return_value = encoder_class
 
     return return_value
 
