@@ -6,7 +6,7 @@ import re
 
 import yaml
 
-import mustup.core.tup.rule
+import mustup.tup.rule
 
 logger = logging.getLogger(
     __name__,
@@ -97,7 +97,7 @@ def process_current_directory(
 #                            pass
 #                        else:
 #                            processed_track_source_name = f'{track_source_path.stem}-processed.wave'
-#                            rule = mustup.core.tup.rule.Rule(
+#                            rule = mustup.tup.rule.Rule(
 #                                inputs=[
 #                                    track_source_name,
 #                                ],

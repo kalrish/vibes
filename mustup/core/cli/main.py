@@ -4,7 +4,7 @@ import os
 import mustup.core.cli.argparsing
 import mustup.core.cli.logging
 import mustup.core.main
-import mustup.core.tup.vardict
+import mustup.tup.vardict
 
 logger = logging.getLogger(
     __name__,
@@ -39,7 +39,7 @@ def entry_point(
     )
 
     if under_tup:
-        vardict = mustup.core.tup.vardict.load(
+        vardict = mustup.tup.vardict.load(
             path=vardict_path,
         )
 

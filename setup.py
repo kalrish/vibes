@@ -9,6 +9,7 @@ packages = setuptools.find_namespace_packages(
 
 setuptools.setup(
     install_requires=[
+        'mustup_tup >= 0.1 , < 1.0',
         'PyYAML == 5.3.1',
     ],
     entry_points={
