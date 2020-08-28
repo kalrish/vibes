@@ -13,7 +13,7 @@ logger = logging.getLogger(
 )
 
 tracknumber_regex = re.compile(
-    pattern='^(\d+)-.+$',
+    pattern='^(\d+)(-.+)?\..+$',
 )
 
 
