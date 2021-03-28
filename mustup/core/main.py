@@ -13,7 +13,7 @@ logger = logging.getLogger(
 )
 
 tracknumber_regex = re.compile(
-    pattern='^(\d+)(-.+)?\..+$',
+    pattern='^0*(\d+)(-.+)?\..+$',
 )
 
 
@@ -61,12 +61,8 @@ def process_current_directory(
                     )
 
                     if match:
-                        track_number_padded = match.group(
+                        track_number = match.group(
                             1,
-                        )
-
-                        track_number = track_number_padded.lstrip(
-                            '0',
                         )
 
                         try:
